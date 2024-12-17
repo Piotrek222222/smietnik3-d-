@@ -1,0 +1,1 @@
+# smietnik3-d-
