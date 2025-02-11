@@ -20,6 +20,7 @@ public class Movement : MonoBehaviour
         // Obsługa ruchu poziomego
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
+        
 
         Vector3 move = new Vector3(moveX, 0, moveZ).normalized;
 
