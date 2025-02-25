@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class CannonScript : MonoBehaviour
 {
-    public Rigidbody rb;
+    public GameObject spawnPos;
     public GameObject cannon;
     public GameObject projectile;
-    public float force = 10f;
+    public float force = 100f;
+    bool canShoot = true;
+    float shooted;
 
     void Start()
     {
@@ -17,19 +19,20 @@ public class CannonScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Shoot();
         
     }
     void Shoot()
     {
-        if (Input.GetKeyDown("Jump"))
+        if (Input.GetKeyDown(KeyCode.Space) && canShoot)
         {
-            GameObject bullet = Instantiate(projectile , cannon.transform.position + new Vector3(0 , 0 , 0),  cannon.transform.rotation);
-            rb.AddExplosionForce(force , bullet.transform.position - Vector3.back , 2);
-            
-                
-            
+            GameObject bullet = Instantiate(projectile , spawnPos.transform.position,  cannon.transform.rotation);
+            Rigidbody rb = bullet.GetComponent<Rigidbody>();
+            rb.AddForce(cannon.transform.forward * force, ForceMode.Impulse);
+            canShoot = false;
+            shooted = Time.time;
         }
-
+        if (Time.time > shooted + 3)
+            canShoot = true;
     }
 }
