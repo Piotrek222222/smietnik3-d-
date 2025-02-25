@@ -35,4 +35,12 @@ public class CannonScript : MonoBehaviour
         if (Time.time > shooted + 3)
             canShoot = true;
     }
+
+    void MoveCannon()
+    {
+        float movementX = Input.GetAxisRaw("Horizontal");
+        float movementY = Input.GetAxisRaw("Vertical");
+
+    }
+
 }
