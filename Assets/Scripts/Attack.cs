@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    private Animator animator;
+    public Animator animator;
+    
     public bool isPlaying=false;
 
     void Start()

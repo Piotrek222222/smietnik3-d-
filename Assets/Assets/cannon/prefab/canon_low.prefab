@@ -470,7 +470,7 @@ MonoBehaviour:
   spawnPos: {fileID: 2160363310071742578}
   cannon: {fileID: 1000013015263372}
   projectile: {fileID: 5193036643556300745, guid: ae21ccf396a0b794cbec1893a4b90990, type: 3}
-  force: 10
+  IsCannonUsed: 0
 --- !u!1 &1000013922251996
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,7 +602,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1529324808681927554
 Transform:
   m_ObjectHideFlags: 0
