@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnterCannon : MonoBehaviour
 {
     public int cannonNum;
+    public GameObject cannonCamera;
+    GameObject playerCamera;
     CannonController cc;
     void Start()
     {
@@ -17,12 +20,11 @@ public class EnterCannon : MonoBehaviour
         {
             other.GetComponent<GameObject>().SetActive(false);
             cc.SetCannonActive(cannonNum);
+            cannonCamera.gameObject.SetActive(true);
+            playerCamera = other.gameObject.transform.Find("MainCamera").gameObject;
+            playerCamera.gameObject.SetActive(false);
             
 
         }
-    }
-    void Update()
-    {
-        
     }
 }

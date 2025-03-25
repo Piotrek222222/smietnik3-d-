@@ -5,10 +5,6 @@ using UnityEngine;
 public class CannonController : MonoBehaviour
 {
     public List<GameObject> cannonList;
-    void Start()
-    {
-        
-    }
 
     public void SetCannonActive(int cannonNum)
     {
