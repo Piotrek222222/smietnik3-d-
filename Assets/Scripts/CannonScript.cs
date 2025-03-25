@@ -7,26 +7,39 @@ public class CannonScript : MonoBehaviour
     public GameObject spawnPos;
     public GameObject cannon;
     public GameObject projectile;
-    public float force = 100f;
+    float force = 100f;
     bool canShoot = true;
     float shooted;
 
+    public bool IsCannonUsed = false;
+
+    float rotationSpeed = 10f;
+    float horizontalInput;
+    float verticalInput;
+
+    // Zakres obrotu w pionie (góra, dół)
+    float minVerticalAngle = -20f;
+    float maxVerticalAngle = 20f;
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Shoot();
-        
+        if (IsCannonUsed)
+        {
+            Shoot();
+            MoveCannon();
+        }
+
     }
+
     void Shoot()
     {
         if (Input.GetKeyDown(KeyCode.Space) && canShoot)
         {
-            GameObject bullet = Instantiate(projectile , spawnPos.transform.position,  cannon.transform.rotation);
+            GameObject bullet = Instantiate(projectile, spawnPos.transform.position, cannon.transform.rotation);
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             rb.AddForce(cannon.transform.forward * force, ForceMode.Impulse);
             canShoot = false;
@@ -38,9 +51,23 @@ public class CannonScript : MonoBehaviour
 
     void MoveCannon()
     {
-        float movementX = Input.GetAxisRaw("Horizontal");
-        float movementY = Input.GetAxisRaw("Vertical");
+        // Odczytywanie wejść do obracania armaty
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
 
+        // Obracanie na boki (lew - prawo)
+        cannon.transform.Rotate(0, horizontalInput * rotationSpeed * Time.deltaTime, 0);
+
+
+        // Obracanie w pionie (góra - dół)
+        float verticalRotation = verticalInput * rotationSpeed * Time.deltaTime;
+
+        // Ograniczenie obrotu w pionie (aby nie obracało się za bardzo w górę lub w dół)
+        float currentRotationX = cannon.transform.localEulerAngles.x;
+        currentRotationX = (currentRotationX > 180) ? currentRotationX - 360 : currentRotationX;
+
+        float newRotationX = Mathf.Clamp(currentRotationX + verticalRotation, minVerticalAngle, maxVerticalAngle);
+
+        cannon.transform.localRotation = Quaternion.Euler(newRotationX, cannon.transform.localEulerAngles.y, 0);
     }
-
 }
