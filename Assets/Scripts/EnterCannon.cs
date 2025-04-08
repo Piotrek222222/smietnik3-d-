@@ -14,11 +14,11 @@ public class EnterCannon : MonoBehaviour
         cc = GetComponent<CannonController>();
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Player" && Input.GetKeyDown(KeyCode.E))
         {
-            other.GetComponent<GameObject>().SetActive(false);
+            other.gameObject.SetActive(false);
             cc.SetCannonActive(cannonNum);
             cannonCamera.gameObject.SetActive(true);
             playerCamera = other.gameObject.transform.Find("MainCamera").gameObject;
